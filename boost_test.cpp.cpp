@@ -81,12 +81,12 @@ VideoCapture capture1(1);
 
 capture.set(CV_CAP_PROP_FRAME_WIDTH,640);
 capture.set(CV_CAP_PROP_FRAME_HEIGHT,480);
-capture.set(CV_CAP_PROP_EXPOSURE, -2);
+capture.set(CV_CAP_PROP_EXPOSURE, -7);
 double exp1 = capture.get(CV_CAP_PROP_EXPOSURE);
 
 capture1.set(CV_CAP_PROP_FRAME_WIDTH,640);
 capture1.set(CV_CAP_PROP_FRAME_HEIGHT,480);
-capture1.set(CV_CAP_PROP_EXPOSURE, -2);
+capture1.set(CV_CAP_PROP_EXPOSURE, -7);
 double exp2 = capture1.get(CV_CAP_PROP_EXPOSURE);
 cout<<"exposure values"<<exp1<<"    "<<exp2<<endl;
 
@@ -119,10 +119,10 @@ strcat(fname1, patdat3);
 strcat(fname1, "_");
 strcat(fname1, "right");
 strcat(fname1,".avi");
-fps1=20;
+
 /*Define VideoiWriter object for storing the video*/
-VideoWriter video(fname,CV_FOURCC('M','J','P','G'),fps1,cvSize(framewidth, frameheight));  //CV_FOURCC('M','J','P','G') is a motion-jpeg codec
-VideoWriter video1(fname1,CV_FOURCC('M','J','P','G'),fps1,cvSize(framewidth, frameheight));
+VideoWriter video(fname,CV_FOURCC('M','J','P','G'),framerate,cvSize(framewidth, frameheight));  //CV_FOURCC('M','J','P','G') is a motion-jpeg codec
+VideoWriter video1(fname1,CV_FOURCC('M','J','P','G'),framerate,cvSize(framewidth, frameheight));
 
 // initialize initial timestamps
 	nextFrameTimestamp = microsec_clock::local_time();
