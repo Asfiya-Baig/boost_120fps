@@ -20,7 +20,7 @@ using namespace cv;
 
 
 
-int fps=120;
+int fps=120, exposure;
 char key1, key2;
 //Gloabal variables
 Mat image, image1;
@@ -50,14 +50,14 @@ cout<<"error :/"<<endl;//some other error occurred. Inform user.
 DCB dcbSerialParams = {0};
 dcbSerialParams.DCBlength=sizeof(dcbSerialParams);
 if (!GetCommState(hSerial, &dcbSerialParams)) {
-printf("error getting state");
+printf("error getting state\n");
 }
 dcbSerialParams.BaudRate=CBR_9600;
 dcbSerialParams.ByteSize=8;
 dcbSerialParams.StopBits=ONESTOPBIT;
 dcbSerialParams.Parity=NOPARITY;
 if(!SetCommState(hSerial, &dcbSerialParams)){
-printf("error setting serial port state");
+printf("error setting serial port state\n");
 }
 int n=1;
 DWORD bytesWritten;
@@ -76,17 +76,30 @@ infile>>patdat2;        //reading patients age
 infile>>patdat3;        //reading patients gender
 //cout<<"enter camera number"<<endl;
 //cin>>a;
+
+FileStorage fs;
+fs.open("file1.xml", FileStorage::READ);
+
+FileNode q = fs.root();
+for (FileNodeIterator current = q.begin(); current != q.end(); current++) {
+FileNode item = *current;
+
+cout<<"Success"<<endl;
+item["Exposure"] >> exposure;
+cout << exposure << endl;
+}
+
 VideoCapture capture(0);	//Opens the camera of the device connected
 VideoCapture capture1(1);
 
 capture.set(CV_CAP_PROP_FRAME_WIDTH,640);
 capture.set(CV_CAP_PROP_FRAME_HEIGHT,480);
-capture.set(CV_CAP_PROP_EXPOSURE, -7);
+capture.set(CV_CAP_PROP_EXPOSURE, exposure);
 double exp1 = capture.get(CV_CAP_PROP_EXPOSURE);
 
 capture1.set(CV_CAP_PROP_FRAME_WIDTH,640);
 capture1.set(CV_CAP_PROP_FRAME_HEIGHT,480);
-capture1.set(CV_CAP_PROP_EXPOSURE, -7);
+capture1.set(CV_CAP_PROP_EXPOSURE, exposure);
 double exp2 = capture1.get(CV_CAP_PROP_EXPOSURE);
 cout<<"exposure values"<<exp1<<"    "<<exp2<<endl;
 
