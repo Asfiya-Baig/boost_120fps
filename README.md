@@ -1,1 +1,1 @@
-# boost_120fps
+Code for capturing data at 120fps using boost libraries
